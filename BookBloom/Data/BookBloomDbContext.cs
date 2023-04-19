@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BookBloom.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookBloom.Data
 {
@@ -8,5 +9,7 @@ namespace BookBloom.Data
         {
                 
         }
+
+        public DbSet<Category> Category { get; set; }
     }
 }
