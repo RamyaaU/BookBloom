@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookBloom.Data;
+using BookBloom.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookBloom.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly BookBloomDbContext dbContext;
+
+        public CategoryController(BookBloomDbContext bookBloomDbContext)
+        {
+                dbContext = bookBloomDbContext;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<Category> categories = dbContext.Category.ToList();
+            return View(categories);     
         }
     }
 }
