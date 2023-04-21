@@ -18,5 +18,14 @@ namespace BookBloom.Controllers
             List<Category> categories = dbContext.Category.ToList();
             return View(categories);     
         }
+
+        /// <summary>
+        /// get method for create
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
