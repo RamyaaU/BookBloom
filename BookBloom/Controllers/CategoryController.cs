@@ -27,5 +27,18 @@ namespace BookBloom.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Create(Category category) 
+        {
+            dbContext.Category.Add(category);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
