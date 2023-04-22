@@ -37,10 +37,10 @@ namespace BookBloom.Controllers
         public IActionResult Create(Category category) 
         {
             //custom validation
-            if(category.Name == category.DisplayOrder.ToString())
-            {
-                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            }
+            //if(category.Name == category.DisplayOrder.ToString())
+            //{
+            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
+            //}
             //model state validation
             if (ModelState.IsValid)
             {
