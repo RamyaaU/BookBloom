@@ -10,13 +10,13 @@ namespace BookBloom.Controllers
 
         public CategoryController(BookBloomDbContext bookBloomDbContext)
         {
-                dbContext = bookBloomDbContext;
+            dbContext = bookBloomDbContext;
         }
 
         public IActionResult Index()
         {
             List<Category> categories = dbContext.Category.ToList();
-            return View(categories);     
+            return View(categories);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BookBloom.Controllers
         /// <param name="category"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(Category category) 
+        public IActionResult Create(Category category)
         {
             //custom validation
             if (category.Name == category.DisplayOrder.ToString())
@@ -57,7 +57,7 @@ namespace BookBloom.Controllers
         /// <returns></returns>
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
@@ -66,12 +66,12 @@ namespace BookBloom.Controllers
             //Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
 
-            if(categoryFromDb == null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
             return View(categoryFromDb);
-        }  
+        }
 
         /// <summary>
         /// post method for edit
@@ -79,21 +79,62 @@ namespace BookBloom.Controllers
         /// <param name="category"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Category updateCategory)
         {
-            //custom validation
-            if (category.Name == category.DisplayOrder.ToString())
-            {
-                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            }
+            ////custom validation
+            //if (category.Name == category.DisplayOrder.ToString())
+            //{
+            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
+            //}
             //model state validation
             if (ModelState.IsValid)
             {
-                dbContext.Category.Add(category);
+                dbContext.Category.Update(updateCategory);
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        /// <summary>
+        /// get method for delete
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = dbContext.Category.Find(id);
+            //Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
+            //Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        /// <summary>
+        /// post method for delete
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteCategory(int? id)
+        {
+            Category? deleteCategory = dbContext.Category.Find(id);
+            if (deleteCategory == null)
+            {
+                return NotFound();
+            }
+            dbContext.Category.Remove(deleteCategory);
+
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
