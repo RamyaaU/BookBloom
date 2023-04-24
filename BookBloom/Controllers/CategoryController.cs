@@ -63,15 +63,15 @@ namespace BookBloom.Controllers
             }
 
             Category? categoryFromDb = dbContext.Category.Find(id);
-            Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
-            Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
+            //Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
+            //Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
 
             if(categoryFromDb == null)
             {
                 return NotFound();
             }
             return View(categoryFromDb);
-        }
+        }  
 
         /// <summary>
         /// post method for edit
