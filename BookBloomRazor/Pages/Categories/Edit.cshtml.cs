@@ -38,7 +38,7 @@ namespace BookBloomRazor.Pages.Categories
             {
                 dbContext.Category.Update(category);
                 dbContext.SaveChanges();
-                //TempData["success"] = AppConstants.AppConstants.EDIT_CATEGORY_POST;
+                TempData["success"] = AppConstants.AppConstants.EDIT_CATEGORY_POST;
                 return RedirectToPage("Index");
             }
             return Page();

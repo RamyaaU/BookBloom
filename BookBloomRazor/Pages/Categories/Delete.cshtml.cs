@@ -42,7 +42,7 @@ namespace BookBloomRazor.Pages.Categories
             }
             dbContext.Category.Remove(deleteCategory);
             dbContext.SaveChanges();
-            //TempData["success"] = AppConstants.AppConstants.DELETE_CATEGORY_POST;
+            TempData["success"] = AppConstants.AppConstants.DELETE_CATEGORY_POST;
             return RedirectToPage("Index");
         }
     }
