@@ -1,7 +1,15 @@
+using BookBloomRazor.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//registering db context
+builder.Services.AddDbContext<BookBloomRazorDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DbConnection")));
+
 
 var app = builder.Build();
 
