@@ -1,4 +1,5 @@
-﻿using BookBloom.Data;
+﻿using BookBloom.AppConstants;
+using BookBloom.Data;
 using BookBloom.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,7 @@ namespace BookBloom.Controllers
             {
                 dbContext.Category.Add(category);
                 dbContext.SaveChanges();
+                TempData["success"] = AppConstants.AppConstants.CATEGORY_POST;
                 return RedirectToAction("Index");
             }
             return View();
@@ -91,6 +93,7 @@ namespace BookBloom.Controllers
             {
                 dbContext.Category.Update(updateCategory);
                 dbContext.SaveChanges();
+                TempData["success"] = AppConstants.AppConstants.EDIT_CATEGORY_POST;
                 return RedirectToAction("Index");
             }
             return View();
@@ -134,6 +137,7 @@ namespace BookBloom.Controllers
             dbContext.Category.Remove(deleteCategory);
 
             dbContext.SaveChanges();
+            TempData["success"] = AppConstants.AppConstants.DELETE_CATEGORY_POST;
             return RedirectToAction("Index");
         }
     }
