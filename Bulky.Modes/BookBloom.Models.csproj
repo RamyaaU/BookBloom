@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bulky.Utility\BookBloom.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

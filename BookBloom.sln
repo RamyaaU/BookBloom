@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookBloom", "BookBloom\Book
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookBloomRazor", "BookBloomRazor\BookBloomRazor.csproj", "{8C44261A-D383-42F2-AE34-9C7E801F1B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulky.DataAccess", "Bulky.DataAccess\Bulky.DataAccess.csproj", "{79207B10-775C-4D1C-9EF3-0ADD76F07750}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookBloom.DataAccess", "Bulky.DataAccess\BookBloom.DataAccess.csproj", "{79207B10-775C-4D1C-9EF3-0ADD76F07750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulky.Utility", "Bulky.Utility\Bulky.Utility.csproj", "{E1796DC2-2EF9-4CF1-B68B-BD16A46FD260}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookBloom.Utility", "Bulky.Utility\BookBloom.Utility.csproj", "{E1796DC2-2EF9-4CF1-B68B-BD16A46FD260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulky.Modes", "Bulky.Modes\Bulky.Modes.csproj", "{6DE4BEAD-8C85-40A5-A7C8-0F912CD9B071}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookBloom.Models", "Bulky.Modes\BookBloom.Models.csproj", "{6DE4BEAD-8C85-40A5-A7C8-0F912CD9B071}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
