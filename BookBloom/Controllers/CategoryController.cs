@@ -1,5 +1,7 @@
 ﻿using BookBloom.AppConstants;
 using BookBloom.Data;
+using BookBloom.DataAccess.Repository;
+using BookBloom.DataAccess.Repository.IRepository;
 using BookBloom.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,16 +9,16 @@ namespace BookBloom.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly BookBloomDbContext dbContext;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryController(BookBloomDbContext bookBloomDbContext)
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            dbContext = bookBloomDbContext;
+            _categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
         {
-            List<Category> categories = dbContext.Category.ToList();
+            List<Category> categories = _categoryRepository.GetAll().ToList();
             return View(categories);
         }
 
@@ -45,8 +47,8 @@ namespace BookBloom.Controllers
             //model state validation
             if (ModelState.IsValid)
             {
-                dbContext.Category.Add(category);
-                dbContext.SaveChanges();
+                _categoryRepository.Add(category);
+                _categoryRepository.Save();
                 TempData["success"] = AppConstants.AppConstants.CATEGORY_POST;
                 return RedirectToAction("Index");
             }
@@ -64,7 +66,7 @@ namespace BookBloom.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = dbContext.Category.Find(id);
+            Category? categoryFromDb = _categoryRepository.Get(u => u.Id == id);
             //Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
 
@@ -91,8 +93,8 @@ namespace BookBloom.Controllers
             //model state validation
             if (ModelState.IsValid)
             {
-                dbContext.Category.Update(updateCategory);
-                dbContext.SaveChanges();
+                _categoryRepository.Update(updateCategory);
+                _categoryRepository.Save();
                 TempData["success"] = AppConstants.AppConstants.EDIT_CATEGORY_POST;
                 return RedirectToAction("Index");
             }
@@ -110,7 +112,7 @@ namespace BookBloom.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = dbContext.Category.Find(id);
+            Category? categoryFromDb = _categoryRepository.Get(u => u.Id == id);
             //Category? categoryFromDb1 = dbContext.Category.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb2 = dbContext.Category.Where(u => u.Id == id).FirstOrDefault();
 
@@ -129,14 +131,14 @@ namespace BookBloom.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteCategory(int? id)
         {
-            Category? deleteCategory = dbContext.Category.Find(id);
+            Category? deleteCategory = _categoryRepository.Get(u => u.Id == id);
             if (deleteCategory == null)
             {
                 return NotFound();
             }
-            dbContext.Category.Remove(deleteCategory);
+            _categoryRepository.Remove(deleteCategory);
 
-            dbContext.SaveChanges();
+            _categoryRepository.Save();
             TempData["success"] = AppConstants.AppConstants.DELETE_CATEGORY_POST;
             return RedirectToAction("Index");
         }
