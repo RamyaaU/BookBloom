@@ -1,4 +1,6 @@
 using BookBloom.Data;
+using BookBloom.DataAccess.Repository;
+using BookBloom.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddControllersWithViews();
 //registering db context
 builder.Services.AddDbContext<BookBloomDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DbConnection")));
+
+//service register for category
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 

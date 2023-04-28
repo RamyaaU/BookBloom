@@ -5,7 +5,7 @@ using BookBloom.DataAccess.Repository.IRepository;
 using BookBloom.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookBloom.Controllers
+namespace BookBloom.Web.Controllers
 {
     public class CategoryController : Controller
     {

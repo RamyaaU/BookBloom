@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace BookBloom.Controllers
+namespace BookBloom.Web.Controllers
 {
     public class HomeController : Controller
     {
