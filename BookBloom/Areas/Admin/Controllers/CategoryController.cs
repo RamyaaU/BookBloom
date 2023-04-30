@@ -5,8 +5,9 @@ using BookBloom.DataAccess.Repository.IRepository;
 using BookBloom.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookBloom.Web.Controllers
+namespace BookBloom.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
