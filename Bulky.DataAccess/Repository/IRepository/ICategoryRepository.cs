@@ -11,5 +11,7 @@ namespace BookBloom.DataAccess.Repository.IRepository
     {
         void Update(Category category);
 
+        void Save();
+
     }
 }

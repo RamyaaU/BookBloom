@@ -18,6 +18,11 @@ namespace BookBloom.DataAccess.Repository
             dbContext = _dbContext;
         }
 
+        public void Save()
+        {
+            dbContext.SaveChanges();
+        }
+
         public void Update(Category category)
         {
             dbContext.Category.Update(category);
