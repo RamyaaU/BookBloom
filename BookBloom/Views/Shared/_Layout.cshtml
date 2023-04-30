@@ -48,11 +48,20 @@
         </main>
     </div>
 
-    <footer class="border-top footer  bg-primary text-muted">
-        <div class="text-center">
-            &copy; @DateTime.Now.Year - BookBloom - Made with <i class="bi bi-bookmark-heart"></i> by Ramya.U
-        </div>
-    </footer>
+    <div style="bottom:0;position: fixed; width:100%;">
+     @* <hr style="width:100%;" />*@
+        <footer class="border-top footer bg-primary text-muted ">
+            <div class="text-center">
+                Made with <i class="bi bi-bookmark-heart"></i>
+            </div>
+        </footer>
+        <footer class="border-top footer  bg-primary text-muted">
+            <div class="text-center">
+                &copy; @DateTime.Now.Year - BookBloom - @*Made with <i class="bi bi-bookmark-heart"></i>*@ by Ramya.U
+            </div>
+        </footer>
+</div>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
