@@ -13,7 +13,7 @@ builder.Services.AddDbContext<BookBloomDbContext>(options => options.UseSqlServe
     builder.Configuration.GetConnectionString("DbConnection")));
 
 //service register for category
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

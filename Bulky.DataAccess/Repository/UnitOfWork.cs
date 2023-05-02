@@ -17,11 +17,11 @@ namespace BookBloom.DataAccess.Repository
         {
             dbContext = _dbContext;
             Category = new CategoryRepository(dbContext);
-            Product = new ProductRepository(dbContext); 
+            //Product = new ProductRepository(dbContext); 
         }
 
         public ICategoryRepository Category { get; private set; }
-        public IProductRepository Product { get; private set; }
+        //public IProductRepository Product { get; private set; }
 
         public void Save()
         {
