@@ -12,6 +12,7 @@ namespace BookBloom.Data
         }
 
         public DbSet<Category> Category { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

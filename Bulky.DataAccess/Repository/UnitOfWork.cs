@@ -1,5 +1,6 @@
 ﻿using BookBloom.Data;
 using BookBloom.DataAccess.Repository.IRepository;
+using BookBloom.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace BookBloom.DataAccess.Repository
         {
             dbContext = _dbContext;
             Category = new CategoryRepository(dbContext);
+            Product = new ProductRepository(dbContext); 
         }
 
         public ICategoryRepository Category { get; private set; }
+        public IProductRepository Product { get; private set; }
 
         public void Save()
         {
