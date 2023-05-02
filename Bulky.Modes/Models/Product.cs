@@ -25,7 +25,7 @@ namespace BookBloom.Models.Models
 
         [Required]
         [Display(Name = "List Price")]
-        [Range(1,1000)]
+        [Range(1, 1000)]
         public string ListPrice { get; set; }
 
         [Required]
@@ -42,8 +42,5 @@ namespace BookBloom.Models.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 1000)]
         public string Price100 { get; set; }
-
-
-
     }
 }

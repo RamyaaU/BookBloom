@@ -1,5 +1,6 @@
 ﻿using BookBloom.Data;
 using BookBloom.DataAccess.Repository.IRepository;
+using BookBloom.Models;
 using BookBloom.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace BookBloom.DataAccess.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private BookBloomDbContext dbContext;
 
-        public UnitOfWork(BookBloomDbContext _dbContext)
+        public ProductRepository(BookBloomDbContext _dbContext) : base(_dbContext)
         {
             dbContext = _dbContext;
-            Category = new CategoryRepository(dbContext);
-            Product = new ProductRepository(dbContext); 
         }
-
-        public ICategoryRepository Category { get; private set; }
-        public IProductRepository Product { get; private set; }
 
         public void Save()
         {
             dbContext.SaveChanges();
+        }
+
+        public void Update(Product product)
+        {
+            dbContext.Product.Update(product);
         }
     }
 }
