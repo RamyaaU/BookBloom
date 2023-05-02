@@ -47,8 +47,9 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            Category? productFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            //Product? productFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //Product? productFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
 
             if (productFromDb == null)
             {
@@ -58,16 +59,17 @@ namespace BookBloom.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Product obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Update(product);
+                _unitOfWork.Product.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Product updated successfully";
                 return RedirectToAction("Index");
             }
             return View();
+
         }
 
         public IActionResult Delete(int? id)
