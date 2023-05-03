@@ -35,10 +35,10 @@ namespace BookBloom.Web.Areas.Admin.Controllers
                 });
 
             //viewbag
-            //ViewBag.CategoryList = selectListItems; 
+            ViewBag.CategoryList = selectListItems; 
 
             //viewdata
-            ViewData["CategoryList"] = selectListItems;
+            //ViewData["CategoryList"] = selectListItems;
             return View();
         }
 
