@@ -5,6 +5,7 @@ using BookBloom.DataAccess.Repository.IRepository;
 using BookBloom.Models;
 using BookBloom.Models.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookBloom.Web.Areas.Admin.Controllers
 {
@@ -25,6 +26,19 @@ namespace BookBloom.Web.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            //projection in EF  - acts as dropdown
+            IEnumerable<SelectListItem> selectListItems = _unitOfWork.Category.GetAll().Select(
+                a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                });
+
+            //viewbag
+            //ViewBag.CategoryList = selectListItems; 
+
+            //viewdata
+            ViewData["CategoryList"] = selectListItems;
             return View();
         }
 
