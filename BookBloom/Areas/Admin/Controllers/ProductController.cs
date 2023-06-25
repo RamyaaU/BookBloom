@@ -53,19 +53,16 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             }
             else
             {
-                ProductViewModel productView1 = new()
-                {
-                    CategoryList = _unitOfWork.Category
+                //while returning back, populate the dropdown again
+                productView.CategoryList = _unitOfWork.Category
                 .GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
-                }),
-                    Product = new Product()
-                };
-                return View(productView1);
+                });
+
+                return View(productView);
             }
-            //return View();
         }
 
         public IActionResult Edit(int? id)
