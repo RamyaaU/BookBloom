@@ -4,6 +4,7 @@ using BookBloom.DataAccess.Repository;
 using BookBloom.DataAccess.Repository.IRepository;
 using BookBloom.Models;
 using BookBloom.Models.Models;
+using BookBloom.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -26,33 +27,45 @@ namespace BookBloom.Web.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            //projection in EF  - acts as dropdown
-            IEnumerable<SelectListItem> selectListItems = _unitOfWork.Category.GetAll().Select(
-                a => new SelectListItem
+
+            ProductViewModel productView = new()
+            {
+                CategoryList = _unitOfWork.Category
+                .GetAll().Select(u => new SelectListItem
                 {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                });
-
-            //viewbag
-            ViewBag.CategoryList = selectListItems; 
-
-            //viewdata
-            //ViewData["CategoryList"] = selectListItems;
-            return View();
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                Product = new Product()
+            };
+            return View(productView);
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductViewModel productView)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                _unitOfWork.Product.Add(productView.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                ProductViewModel productView1 = new()
+                {
+                    CategoryList = _unitOfWork.Category
+                .GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                    Product = new Product()
+                };
+                return View(productView1);
+            }
+            //return View();
         }
 
         public IActionResult Edit(int? id)
