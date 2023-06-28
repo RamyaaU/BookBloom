@@ -25,9 +25,13 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             return View(product);
         }
 
-        public IActionResult Create()
+        /// <summary>
+        /// get method for upsert
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult Upsert(int? id)
         {
-
             ProductViewModel productView = new()
             {
                 CategoryList = _unitOfWork.Category
@@ -38,11 +42,23 @@ namespace BookBloom.Web.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            return View(productView);
+            //if id is not present, then create so it will be returned to view
+            if (id == null || id == 0)
+            {
+                //create
+                return View(productView);
+            }
+            //if not then product gets updated
+            else
+            {
+                //update
+                productView.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productView);
+            }
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel productView)
+        public IActionResult Upsert(ProductViewModel productView, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -64,38 +80,7 @@ namespace BookBloom.Web.Areas.Admin.Controllers
                 return View(productView);
             }
         }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            //Product? productFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //Product? productFromDb2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
-
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-
-        }
-
+                
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
