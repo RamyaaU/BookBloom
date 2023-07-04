@@ -67,7 +67,8 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if(file != null)
-                {
+                { 
+                    //everytime the file gets uploaded, file might have some names, instead we can rename the file to random guid 
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
