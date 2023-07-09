@@ -66,20 +66,42 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if(file != null)
-                { 
+                if (file != null)
+                {
                     //everytime the file gets uploaded, file might have some names, instead we can rename the file to random guid 
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    //if the image url is null or empty in update 
+                    if (!string.IsNullOrEmpty(productView.Product.ImageUrl))
                     {
-                        file.CopyTo(fileStream);
-                    }
+                        //delete the old image
+                        var oldImage = Path.Combine(wwwRootPath, productView.Product.ImageUrl.TrimStart('\\'));
 
-                    productView.Product.ImageUrl = @"\images\product\" + fileName;
+                        if (System.IO.File.Exists(oldImage))
+                        {
+                            System.IO.File.Delete(oldImage);
+                        }
+
+                        using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
+
+                        productView.Product.ImageUrl = @"\images\product\" + fileName;
+                    }
                 }
-                _unitOfWork.Product.Add(productView.Product);
+
+
+                if (productView.Product.Id == 0)
+                {
+                    _unitOfWork.Product.Add(productView.Product);
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(productView.Product);
+                }
+
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
@@ -97,7 +119,7 @@ namespace BookBloom.Web.Areas.Admin.Controllers
                 return View(productView);
             }
         }
-                
+
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
