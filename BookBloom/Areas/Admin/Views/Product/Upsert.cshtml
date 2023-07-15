@@ -14,6 +14,7 @@
         <form method="post" class="row" enctype="multipart/form-data">
             @*id should be hidden, that way when it is post id will always be populated. *@
             <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImageUrl" hidden />
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3">
