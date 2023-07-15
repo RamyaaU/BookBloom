@@ -24,7 +24,7 @@ namespace BookBloom.Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Product> product = _unitOfWork.Product.GetAll().ToList();
+            List<Product> product = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return View(product);
         }
 

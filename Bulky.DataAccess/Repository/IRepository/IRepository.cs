@@ -10,9 +10,9 @@ namespace BookBloom.DataAccess.Repository.IRepository
     //this is a generic repo class
     public interface IRepository<T> where T: class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
         void Add(T entity);
 
