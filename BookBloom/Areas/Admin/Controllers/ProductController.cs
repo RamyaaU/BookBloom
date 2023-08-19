@@ -82,14 +82,16 @@ namespace BookBloom.Web.Areas.Admin.Controllers
                         {
                             System.IO.File.Delete(oldImage);
                         }
-
-                        using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                        {
-                            file.CopyTo(fileStream);
-                        }
-
-                        productView.Product.ImageUrl = @"\images\product\" + fileName;
                     }
+
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    productView.Product.ImageUrl = @"\images\product\" + fileName;
+
                 }
 
 
@@ -165,9 +167,9 @@ namespace BookBloom.Web.Areas.Admin.Controllers
         public IActionResult Delete(int? id)
         {
             var deleteProduct = _unitOfWork.Product.Get(u => u.Id == id);
-            if(deleteProduct == null)
+            if (deleteProduct == null)
             {
-                return Json(new {success  = false, message = "Error while deleting"});
+                return Json(new { success = false, message = "Error while deleting" });
             }
 
             var oldImage = Path.Combine(_webHostEnvironment.WebRootPath, deleteProduct.ImageUrl.TrimStart('\\'));
