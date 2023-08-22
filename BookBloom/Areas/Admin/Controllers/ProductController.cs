@@ -183,7 +183,7 @@ namespace BookBloom.Web.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             //List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new { success = true, message = "Delete Successful" });
+            return Json(new { success = true, message = "Product deleted sucessfully" });
         }
 
         #endregion
